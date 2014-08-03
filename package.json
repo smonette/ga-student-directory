@@ -1,0 +1,24 @@
+{
+  "name": "ga-student-directory",
+  "version": "0.0.0",
+  "description": "Project1: A directory for students at GA",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smonette/ga-student-directory.git"
+  },
+  "author": "Steph Monette",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smonette/ga-student-directory/issues"
+  },
+  "homepage": "https://github.com/smonette/ga-student-directory",
+  "dependencies": {
+    "pg": "^3.4.0",
+    "sequelize": "^1.7.9",
+    "sequelize-cli": "^0.2.3"
+  }
+}
