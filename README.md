@@ -1,4 +1,12 @@
-ga-student-directory
-====================
+# Project 1: Directory of SF GA Students
 
-Project 1: A directory for SF GA students to connect
+
+## APIs Used
+*
+*
+*
+
+## Node Modules
+*
+*
+*
