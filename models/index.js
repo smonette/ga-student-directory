@@ -23,6 +23,9 @@ Object.keys(db).forEach(function(modelName) {
   }
 })
 
+// SET UP THE ASSOCIATIONS
+db.course.belongsTo(db.user);
+
 module.exports = lodash.extend({
   sequelize: sequelize,
   Sequelize: Sequelize

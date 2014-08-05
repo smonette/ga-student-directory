@@ -1,9 +1,11 @@
+/* General Styles */
+
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700);
 
 body {
   font-family: 'Roboto Slab', serif;
   font-size: 15px;
-  line-height: 19px;
+  line-height: 20px;
   color: #222222;
   background-color: #ececec;
 }
@@ -13,4 +15,39 @@ a {
 }
 a:hover{
   color: #fa4542;
+}
+
+
+section {
+  max-width: 960px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+header, footer {
+  background-color: #222222;
+  color: #ececec;
+  min-height: 50px;
+  padding: 20px 0;
+}
+
+footer {
+  text-align: center;
+}
+header a, 
+footer a {
+  color: #ececec;
+}
+header a {
+  float: right;
+}
+.main {
+  min-height: 700px;
+}
+
+
+/* Landing page */
+
+.signup {
+  background-color: white;
 }
