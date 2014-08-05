@@ -1,7 +1,6 @@
 var bcrypt = require("bcrypt");
 var salt = bcrypt.genSaltSync(10);
 var passport = require("passport");
-// all the passports are local to our application (no facebook authen etc)
 var passportLocal = require("passport-local");
 
 
@@ -74,7 +73,7 @@ module.exports = function (sequelize, DataTypes){
   passport.use(new passportLocal.Strategy({
     // must keep as usernameField
     usernameField: 'email',
-    password: 'password',
+    passwordField: 'password',
     passReqToCallback: true // passes the request callback to the param
   },
     function(req, email, password, done) {

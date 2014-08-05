@@ -59,19 +59,30 @@ app.get('/login', function (req, res) {
   res.render('site/login');
 });
 
-// SIGN UP & LOGIN
+app.get('/home', function (req, res) {
+  res.render('site/home');
+});
+
+// POSTS FOR SIGN UP, LOGIN & EDIT PROFILE
 
 app.post('/create', function(req,res){
   // have to call my create new user functions
   db.user.createNewUser(req.body.firstname, req.body.lastname, req.body.email, req.body.password,
     function(err){
-      res.render("site/index", { message: err.message, email: req.body.email})
+      res.render("site/index", { message: err.message, email: req.body.email});
     },
     function(success){
       res.render('site/login', {message: success.message, email:req.body.email});
     });
 
 });
+
+app.post('/login', passport.authenticate('local', { 
+  //no req and res. we dont need to because passport is doing the heavy lifting with local  
+  successRedirect: 'site/home',
+  failureRedirect: 'site/login',
+  failureFlash: true
+}));
 
 // USER FILES
 app.get('/edit', function (req, res) {
