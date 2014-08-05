@@ -7,7 +7,10 @@ var express = require('express'),
     cookieSession = require("cookie-session"),
     _ = require('lodash'),
     OAuth = require('oauth'),
+    flash = require('connect-flash'),
     app = express();
+
+app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}) );
@@ -17,25 +20,27 @@ app.use( cookieSession({
     maxage: 360000
 }) );
 
+// get passport started
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
-app.use(express.static(__dirname + '/public'));
-
-// prepare our serialize
-passport.serializeUser(function(user,done){
+// prepare our serialize functions
+passport.serializeUser(function(user, done){
+  console.log("SERIALIZED JUST RAN!");
   done(null, user.id);
 });
-passport.deserializeUser(function(id,done){
-  // make sure that the ids match
+
+passport.deserializeUser(function(id, done){
+  console.log("DESERIALIZED JUST RAN!");
   db.user.find({
-    where: {
-      id: id
-    }
-  }).done(function(error, user){
-    // the only time you can do this is after you've already logged in a user
-    done(error, user);
-  })
+      where: {
+        id: id
+      }
+    })
+    .done(function(error,user){ 
+      done(error, user);
+    });
 });
 
 
@@ -48,7 +53,11 @@ passport.deserializeUser(function(id,done){
 // SITE FILES
 
 app.get('/', function (req, res) {
-  res.render('site/index');
+    if(!req.user){
+     res.render('site/index', {message: null, username:''});
+  } else {
+    res.render('site/home');
+  }
 });
 
 app.get('/about', function (req, res) {
@@ -56,11 +65,19 @@ app.get('/about', function (req, res) {
 });
 
 app.get('/login', function (req, res) {
-  res.render('site/login');
+  if(!req.user){
+   res.render('site/login', {message: null, username:''});
+} else {
+  res.render('site/home');
+}
 });
 
 app.get('/home', function (req, res) {
-  res.render('site/home');
+  if(!req.user){
+     res.render('site/login', {message: null, username:''});
+  } else {
+    res.render('site/home');
+  }
 });
 
 // POSTS FOR SIGN UP, LOGIN & EDIT PROFILE
@@ -77,10 +94,10 @@ app.post('/create', function(req,res){
 
 });
 
-app.post('/login', passport.authenticate('local', { 
+app.post('/login', passport.authenticate('local', {
   //no req and res. we dont need to because passport is doing the heavy lifting with local  
-  successRedirect: 'site/home',
-  failureRedirect: 'site/login',
+  successRedirect: '/home',
+  failureRedirect: '/login',
   failureFlash: true
 }));
 

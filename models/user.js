@@ -85,7 +85,7 @@ module.exports = function (sequelize, DataTypes){
       })
       // when thats done
 
-      // done(err)                when we screwed up
+      // done(err)             when we screwed up
       // done(null, false)     when we did it right, but the user messed up
       // done(null, user)      when we did right, and so did the user. 
       .done(function(error,user){
