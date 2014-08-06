@@ -40,6 +40,9 @@ var oauth = new OAuth.OAuth(
 
 
 
+
+
+
 // prepare our serialize functions
 passport.serializeUser(function(user, done){
   console.log("SERIALIZED JUST RAN!");
