@@ -2,8 +2,32 @@
 
   
 <div class="row">
-  <p>Home page</p>
-</div>
+  <section>
+    <div class="col-md-6 col-xs-12">
+      <h2>GA Connect</h2>
+      <a href="" class="btn btn-default">View All SF Students</a>
+      <a href="" class="btn btn-default">View All WDI</a>
+      <a href="" class="btn btn-default">View All UXDI</a>
 
+      <h2>Your Profile</h2>
+      <a href="/user/<%= id %>" class="btn btn-default">View Your Profile</a>
+      <a href="/edit/<%= id %>" class="btn btn-default">Edit Your Profile</a>
+      <a href="/logout" class="btn btn-danger">Log out</a>
+
+    </div>
+
+    <div class="col-md-6 col-xs-12">
+      <h2>What's new <a href="http://twitter.com/GA_SF">@GA_SF?</a></h2>
+      <ul class="tweet-stream">
+        <% for(i = 0; i < tweets.length; i++) { %>
+          <li class="tweet">
+            <p><a href="http://twitter.com/GA_SF/status/<%= tweets[i].id_str %>"><%= tweets[i].text %></a></p>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+
+  </section>
+</div>
 
 <%- include ../footer.ejs %>

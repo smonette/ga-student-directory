@@ -20,13 +20,25 @@ app.use(bodyParser.urlencoded({extended: true}) );
 app.use( cookieSession({
     secret: 'thisismysecretkey', 
     name: 'cookie created by steph',
-    maxage: 360000
+    maxage: 60360000
 }) );
 
 // get passport started
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+var oauth = new OAuth.OAuth(
+  'https://api.twitter.com/oauth/request_token',
+  'https://api.twitter.com/oauth/access_token',
+  process.env.TWITTER_KEY,
+  process.env.TWITTER_SECRET,
+  '1.0A',
+  null,
+  'HMAC-SHA1'
+);
+
+
 
 // prepare our serialize functions
 passport.serializeUser(function(user, done){
@@ -48,8 +60,13 @@ passport.deserializeUser(function(id, done){
 
 
 
-
-
+var retreieveTweets = function(requestUrl, callback) {
+  var allTweets;
+  oauth.get(requestUrl, null, null, function(e, data, res){
+    allTweets = JSON.parse(data);
+    callback(allTweets);
+  });
+}
 
 
 
@@ -59,7 +76,7 @@ app.get('/', function (req, res) {
     if(!req.user){
      res.render('site/index', {message: null, username:''});
   } else {
-    res.render('site/home');
+    res.redirect('/home');
   }
 });
 
@@ -70,16 +87,28 @@ app.get('/about', function (req, res) {
 app.get('/login', function (req, res) {
   if(!req.user){
    res.render('site/login', {message: null, username:''});
-} else {
-  res.render('site/home');
-}
+  } else {
+    res.redirect('/home/' + req.user.id);
+  }
 });
 
 app.get('/home', function (req, res) {
   if(!req.user){
      res.render('site/login', {message: null, username:''});
   } else {
-    res.render('site/home');
+      res.redirect('/home/' + req.user.id);
+  }
+});
+
+
+app.get('/home/:id', function (req, res) {
+  if(!req.user){
+     res.render('site/login', {message: null, username:''});
+  } else {
+    var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=GA_SF&count=5";
+    retreieveTweets(url, function(allTweets){
+      res.render('site/home', { tweets: allTweets, id: req.params.id });
+    });
   }
 });
 
@@ -92,7 +121,7 @@ app.get('/logout', function(req,res){
 
 app.post('/create', function(req,res){
   // have to call my create new user functions
-  db.user.createNewUser(req.body.firstname, req.body.lastname, req.body.email, req.body.password,
+  db.user.createNewUser(req.body.firstname, req.body.lastname, req.body.email, req.body.twitterhandle, req.body.password,
     function(err){
       res.render("site/index", { message: err.message, email: req.body.email});
     },
@@ -105,7 +134,7 @@ app.post('/create', function(req,res){
 app.post('/login', passport.authenticate('local', {
   //no req and res. we dont need to because passport is doing the heavy lifting with local  
   successRedirect: '/home',
-  failureRedirect: '/login',
+  failureRedirect: '/login', 
   failureFlash: true
 }));
 
@@ -120,8 +149,6 @@ app.put('/edit/:id', function(req,res){
       }
     })
     .success(function(foundUser){
-      console.log(req.body.bio);
-
       foundUser.updateAttributes ( {
         website: req.body.website, 
         twitterhandle: req.body.twitterhandle, 
@@ -153,11 +180,19 @@ app.get('/user/:id', function (req, res) {
       }
     })
     .success(function(foundUser) {
-      res.render("user/profile", 
-        { isAuthenticated: req.isAuthenticated(),
-          user: foundUser
-        });
-   });
+    
+
+      var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=5";
+      retreieveTweets(url, function(allTweets){ 
+              res.render("user/profile", 
+              { isAuthenticated: req.isAuthenticated(),
+                tweets: allTweets,
+                user: foundUser
+              });
+         });   
+      });
+
+
 
 
 });
@@ -175,7 +210,7 @@ app.get('/edit/:id', function (req, res) {
         firstname: foundUser.firstname, 
         lastname: foundUser.lastname, 
         email: foundUser.email, 
-        website: foundUser.website || " ", 
+        website: foundUser.website || "", 
         twitterhandle: foundUser.twitterhandle || "", 
         linkedin: foundUser.linkedin || "", 
         bio: foundUser.bio || "", 
@@ -197,6 +232,6 @@ app.get('/*', function (req, res) {
 
 
 
-app.listen(8888, function(){
-  console.log("~ * ~ * ~ * ~ * ~ * ~ *  started on port 8888   * ~ * ~ * ~ * ~ * ~ * ~");
+app.listen(process.env.PORT || 8888, function(){
+  console.log("~ * ~ * ~ * ~ * ~ * ~ *  server has started   * ~ * ~ * ~ * ~ * ~ * ~");
 });

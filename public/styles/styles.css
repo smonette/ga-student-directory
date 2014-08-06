@@ -25,10 +25,10 @@ section {
 }
 
 header, footer {
-  background-color: #222222;
+  background-color: black;
   color: #ececec;
   min-height: 50px;
-  padding: 20px 0;
+  padding: 10px 0 20px 0;
 }
 
 footer {
@@ -38,7 +38,14 @@ header a,
 footer a {
   color: #ececec;
 }
-header a {
+header a#logo {
+  background: url('/images/logo.jpg') 0 0 no-repeat;
+  text-indent: -99999px;
+  float: left;
+  width: 100px;
+  height: 30px;
+}
+header .right-box {
   float: right;
 }
 .main {
@@ -50,4 +57,40 @@ header a {
 
 .signup {
   background-color: white;
+  padding: 10px 0 30px 0;
+}
+.login {
+  background-color: white;
+  padding: 10px 0 30px 0;
+}
+
+/* home page */
+ul.tweet-stream{
+  padding: 0;
+}
+li.tweet {
+  list-style: none;
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
+}
+
+/* profile */
+.profile img.profile-pic {
+  float: left;
+  margin: 10px 10px 10px 0;
+  border-radius: 50%;
+  width: 150px;
+}
+
+.profile .top {
+  clear: both;
+  height: 175px;
+}
+.profile .bottom {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  clear: both;
+}
+.profile .top .email {
+  padding-top: 40px;
 }
