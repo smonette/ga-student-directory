@@ -1,5 +1,17 @@
 <%- include ../header.ejs %>
 
-  <p>User/Profile</p>
+<% if (!isAuthenticated) { %>
+<div class="alert alert-warning">
+  <a href="/login">You must be logged in to view this page</a>
+</div>
+<%  } else {%>
+
+  <p><%= user.dataValues.firstname %> <%= user.dataValues.lastname %></p> 
+  <p><a href="mailto:<%= user.dataValues.email %>"><%= user.dataValues.email %></a></p>
+  <p><a href="<%= user.dataValues.linkedin %>">LinkedIn</a></p>
+  <p><a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>">@<%= user.dataValues.twitterhandle %></a></p>
+  <p><%= user.dataValues.bio %></p>
+  
+  <% } %>
   
 <%- include ../footer.ejs %>
