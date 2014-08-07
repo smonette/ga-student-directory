@@ -89,7 +89,7 @@ app.get('/about', function (req, res) {
 
 app.get('/login', function (req, res) {
   if(!req.user){
-   res.render('site/login', {message: null, username:''});
+   res.render('site/login', {message: req.flash('loginMessage'), username:''});
   } else {
     res.redirect('/home/' + req.user.id);
   }
@@ -206,39 +206,36 @@ app.get('/user/:id', function (req, res) {
 
 
 app.get('/edit/:id', function (req, res) {
-
   var id = req.params.id;
-  db.user.find(id)
-  .success(function(foundUser){
-      var classid = foundUser.courseid;
-      db.course.find(classid)
+  db.user.find(id).success(function(foundUser){
+    var classid = foundUser.courseid;
 
-        .success( function(foundCourse){
-          var course = foundCourse;
+    var obj ={
+      id: foundUser.id,
+      firstname: foundUser.firstname,
+      lastname: foundUser.lastname,
+      email: foundUser.email,
+      courseid: "",
+      course: "Select Your Cohort",
+      website: foundUser.website || "",
+      twitterhandle: foundUser.twitterhandle || "",
+      linkedin: foundUser.linkedin || "",
+      bio: foundUser.bio || "",
+      addlinfo: foundUser.samplework || "",
+      isAuthenticated: req.isAuthenticated()
+    };
 
-           res.render('user/edit', 
-              { id: foundUser.id,
-              firstname: foundUser.firstname, 
-              lastname: foundUser.lastname, 
-              email: foundUser.email, 
-              courseid: foundUser.courseid || "",
-              course: course.topic + " - " + course.time || "Select Your Cohort",
-              website: foundUser.website || "", 
-              twitterhandle: foundUser.twitterhandle || "", 
-              linkedin: foundUser.linkedin || "", 
-              bio: foundUser.bio || "", 
-              addlinfo: foundUser.samplework || "", 
-              isAuthenticated: req.isAuthenticated()
-              })
-            })
-
-
-
-        })
-
-
-     
-
+    if (classid) {
+      db.course.find(classid).success(function(foundCourse){
+        var course = foundCourse;
+        obj.courseid = foundUser.courseid || "";
+        obj.course = course.name || "Select Your Cohort";
+        res.render('user/edit', obj);
+      });
+    } else {
+      res.render('user/edit', obj);
+    }
+  });
 });
 
 // DIRECTORY PAGE
@@ -249,7 +246,16 @@ app.get('/show/all', function (req, res) {
   } else {
     db.user.findAll()
       .success(function(users){
-        res.render('directory/showAll', { users: users });
+
+        // var courses = [];
+        // users.forEach(function (usr) {
+        //   usr.getCourse().success(function (course, idx) {
+        //     console.log("course", course);
+        //     courses.push(course);
+        //   });
+        // });
+
+        res.render('directory/showAll', { users: users/*, courses: courses*/ });
       });
   }
 

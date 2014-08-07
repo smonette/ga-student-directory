@@ -5,7 +5,7 @@ module.exports = function (sequelize, DataTypes){
         type: DataTypes.INTEGER,
         unique: true 
       },
-      coursename: DataTypes.STRING,
+      name: DataTypes.STRING,
       topic: DataTypes.STRING,
       time: DataTypes.STRING
   })

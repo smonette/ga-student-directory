@@ -1,7 +1,7 @@
 <%- include ../header.ejs %>
 
 <% if (!isAuthenticated) { %>
-<div class="alert alert-warning">
+<div class="alert alert-danger">
   <a href="/login">You must be logged in to view this page</a>
 </div>
 <%  } else {%>

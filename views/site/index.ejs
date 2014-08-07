@@ -12,6 +12,13 @@
 
       <h2>Sign Up Now</h2>
 
+      <% if (message) { %>
+      <div class="alert alert-warning">
+        <%= message %>
+        </div>
+      <% } %>
+
+
       <form class="form-horizontal" role="form" method="POST" action="/create">
      
 
