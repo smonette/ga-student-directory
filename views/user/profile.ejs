@@ -7,18 +7,21 @@
 <%  } else {%>
 
 
-<div class="row profile">
+<div class="row content profile">
   <section>
     <div class="col-md-7 col-xs-12">
 
       <h1><%= user.dataValues.firstname %> <%= user.dataValues.lastname %></h1> 
 
-      <% var photo=tweets[0].user.profile_image_url; %>
-      <% var photoSmall=photo.toString(); %>
-      <% var photoBig=photoSmall.split("_normal",1) + ".jpeg"; %>
 
       <div class="top">
-        <img src="<%= photoBig %>" class="profile-pic"/>
+
+        <% if (user.dataValues.twitterhandle) { %>
+          <% var photoBig=tweets[0].user.profile_image_url.toString().replace(/_normal/,""); %>
+          <img src="<%= photoBig %>" class="profile-pic"/>
+        <% } else { %>
+          <img src="/images/user.png" class="profile-pic"/>
+        <% } %>
         <h3>Contact</h3>
         <p class="email"><a href="mailto:<%= user.dataValues.email %>"><%= user.dataValues.email %></a></p>
         <% if (user.dataValues.linkedin) { %>
@@ -29,7 +32,7 @@
            <p><a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>">@<%= user.dataValues.twitterhandle %></a></p>
         <% } %>
 
-        <% if (user.dataValues.courseid) { %>
+        <% if (user.dataValues.courseId) { %>
            <p><%= course.dataValues.name %></p>
         <% } %>
         

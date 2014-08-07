@@ -1,12 +1,21 @@
 <%- include ../header.ejs %>
 
-<div class="row directory">
+
+<% if (!isAuthenticated) { %>
+<div class="alert alert-danger">
+  <a href="/login">You must be logged in to view this page</a>
+</div>
+<%  } else {%>
+
+
+<div class="row content directory">
   <section>
     <div class="row">
-      <div class="col-md-8">
-        <h1>All SF Students</h1>
+      <div class="col-md-6">
+        <h1>All <%= header %> Students</h1>
       </div>
-      <div class="col-md-4 right-box">
+      <div class="col-md-6 right-box">
+        <a href="/show/all" class="btn btn-default">View All SF</a>
         <a href="/show/wdi" class="btn btn-default">View All WDI</a>
         <a href="/show/uxdi" class="btn btn-default">View All UXDI</a>
       </div>
@@ -16,14 +25,15 @@
 
   <% for(i=0; i<courses.length; i++){ %>
       <% if(courses[i].users.length > 0) { %>
-          <li>
+          <li class="course">
 
-            <%= courses[i].name %>
+            <h3><%= courses[i].name %></h3>
 
             <ul>
               <% for(h=0; h < courses[i].users.length; h++){ %>
-                  <li>
-                    <a href="/users/<%= courses[i].users[h].id %>">
+                  <li class="student">
+                    <a href="/user/<%= courses[i].users[h].id %>">
+                      <span class="glyphicon glyphicon-user icon"></span>
                       <%= courses[i].users[h].firstname %> <%= courses[i].users[h].lastname %>
                     </a>
                 </li>
@@ -39,5 +49,6 @@
 
   </section>
 </div>
-  
+
+<% } %>
 <%- include ../footer.ejs %>

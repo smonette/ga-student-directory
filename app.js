@@ -71,6 +71,7 @@ var retreieveTweets = function(requestUrl, callback) {
   });
 }
 
+var defaultMessage = "Please log in."
 
 
 // SITE FILES
@@ -89,7 +90,7 @@ app.get('/about', function (req, res) {
 
 app.get('/login', function (req, res) {
   if(!req.user){
-   res.render('site/login', {message: req.flash('loginMessage'), username:''});
+   res.render('site/login', {message: defaultMessage, email:'', });
   } else {
     res.redirect('/home/' + req.user.id);
   }
@@ -97,7 +98,7 @@ app.get('/login', function (req, res) {
 
 app.get('/home', function (req, res) {
   if(!req.user){
-     res.render('site/login', {message: null, username:''});
+     res.render('site/login', {message: defaultMessage, email:''});
   } else {
       res.redirect('/home/' + req.user.id);
   }
@@ -106,7 +107,7 @@ app.get('/home', function (req, res) {
 
 app.get('/home/:id', function (req, res) {
   if(!req.user){
-     res.render('site/login', {message: null, username:''});
+     res.render('site/login', {message: defaultMessage, email:''});
   } else {
     var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=GA_SF&count=6";
     retreieveTweets(url, function(allTweets){
@@ -129,7 +130,7 @@ app.post('/create', function(req,res){
       res.render("site/index", { message: err.message, email: req.body.email});
     },
     function(success){
-      res.render('site/login', {message: success.message, email:req.body.email});
+      res.render('site/login', {message: "Success! " + defaultMessage, email:req.body.email});
     });
 
 });
@@ -156,14 +157,13 @@ app.put('/edit/:id', function(req,res){
       foundUser.updateAttributes ( {
         website: req.body.website, 
         twitterhandle: req.body.twitterhandle, 
-        courseid: req.body.courseid, 
+        courseId: req.body.courseId, 
         linkedin: req.body.linkedin, 
         bio: req.body.bio, 
         samplework: req.body.addlinfo 
       } )
     })
     .success(function(user){
-      console.log(user)
       res.redirect('/user/' + Number(req.params.id) );
     });
 
@@ -183,7 +183,7 @@ app.get('/user/:id', function (req, res) {
     
         db.course.find({
           where: {
-            id: foundUser.courseid
+            id: foundUser.courseId
           }
         }) .success( function(foundCourse){
 
@@ -215,7 +215,7 @@ app.get('/edit/:id', function (req, res) {
       firstname: foundUser.firstname,
       lastname: foundUser.lastname,
       email: foundUser.email,
-      courseid: "",
+      courseId: "",
       course: "Select Your Cohort",
       website: foundUser.website || "",
       twitterhandle: foundUser.twitterhandle || "",
@@ -228,7 +228,7 @@ app.get('/edit/:id', function (req, res) {
     if (classid) {
       db.course.find(classid).success(function(foundCourse){
         var course = foundCourse;
-        obj.courseid = foundUser.courseid || "";
+        obj.courseId = foundUser.courseId || "";
         obj.course = course.name || "Select Your Cohort";
         res.render('user/edit', obj);
       });
@@ -242,16 +242,11 @@ app.get('/edit/:id', function (req, res) {
 app.get('/show/all', function (req, res) {
   
   if(!req.user){
-     res.render('site/login', {message: null, username:''});
+     res.render('site/login', {message: null, email:''});
   } else {
     db.course.findAll( {include:[db.user]} )
       .success(function(courses){
-        // var studentOutput =[]
-        // for(i=0; i < courses.length; i++){
-        //   studentOutput.push(courses[i].users);
-        // }
-        // res.send(studentOutput)
-        res.render('directory/showAll', { courses: courses });
+        res.render('directory/showAll', { courses: courses, header: "SF" , isAuthenticated: req.isAuthenticated()});
       });
   }
 
@@ -260,18 +255,44 @@ app.get('/show/all', function (req, res) {
 app.get('/show/wdi', function (req, res) {
 
   if(!req.user){
-     res.render('site/login', {message: null, username:''});
+     res.render('site/login', {message: null, email:''});
   } else {
-    // This will select only name from the Projects table, and only status from the UserProjects table
-    user.getCourses({ attributes: ['id'], joinTableAttributes: ['courseid']})
-      .success(function(users, courses){
-        res.render('directory/showAll', { users: users, courses: courses });
-      })
+    db.course.findAll( {include:[db.user]} )
+
+      .success(function(courses){
+
+        var wdi = [];
+        for(i = 0; i < courses.length; i++){
+          if(courses[i].topic === 'WDI'){
+            wdi.push(courses[i]);
+          }
+        }
+
+        res.render('directory/showAll', { courses: wdi, header: "WDI", isAuthenticated: req.isAuthenticated() });
+      });
   }
 
-});;
+});
 
 app.get('/show/uxdi', function (req, res) {
+
+  if(!req.user){
+     res.render('site/login', {message: null, username:''});
+  } else {
+    db.course.findAll( {include:[db.user]} )
+
+      .success(function(courses){
+
+        var uxdi = [];
+        for(i = 0; i < courses.length; i++){
+          if(courses[i].topic === 'UXDI'){
+            uxdi.push(courses[i]);
+          }
+        }
+
+        res.render('directory/showAll', { courses: uxdi, header:"UXDI", isAuthenticated: req.isAuthenticated() });
+      });
+  }
 
 
 });
