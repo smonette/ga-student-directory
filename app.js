@@ -11,6 +11,8 @@ var express = require('express'),
     flash = require('connect-flash'),
     app = express();
 
+var request = require('supertest');
+
 app.use(express.static(__dirname + '/public'));
 
 app.use(methodOverride("_method"));
@@ -311,3 +313,5 @@ app.get('/*', function (req, res) {
 app.listen(process.env.PORT || 8888, function(){
   console.log("~ * ~ * ~ * ~ * ~ * ~ *  server has started   * ~ * ~ * ~ * ~ * ~ * ~");
 });
+
+module.exports = app;
