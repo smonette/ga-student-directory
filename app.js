@@ -172,11 +172,6 @@ app.put('/edit/:id', function(req,res){
 
 // USER FILES
 
-
-
-
-
-
 app.get('/user/:id', function (req, res) {
 
     db.user.find({
@@ -194,22 +189,18 @@ app.get('/user/:id', function (req, res) {
 
             var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=5";
             retreieveTweets(url, function(allTweets){ 
-                    res.render("user/profile", 
-                    { isAuthenticated: req.isAuthenticated(),
-                      tweets: allTweets,
-                      user: foundUser,
-                      course: foundCourse
-                    });
+                  res.render("user/profile", 
+                  { isAuthenticated: req.isAuthenticated(),
+                    tweets: allTweets,
+                    user: foundUser,
+                    course: foundCourse
+                  });
                });   
             });
 
 
 
         })
-
-
-
-
 
 });
 
@@ -249,6 +240,49 @@ app.get('/edit/:id', function (req, res) {
      
 
 });
+
+// DIRECTORY PAGE
+app.get('/show/all', function (req, res) {
+  
+  if(!req.user){
+     res.render('site/login', {message: null, username:''});
+  } else {
+    db.user.findAll()
+      .success(function(users){
+        res.render('directory/showAll', { users: users });
+      })
+  }
+
+  // if(!req.user){
+  //    res.render('site/login', {message: null, username:''});
+  // } else {
+  //   db.user.getCourses({ attributes: ['id'], joinTableAttributes: ['courseid']})
+  //     .success(function(users, courses){
+  //       res.render('directory/showAll', { users: users, courses: courses });
+  //     })
+  // }
+
+});
+
+app.get('/show/wdi', function (req, res) {
+
+  if(!req.user){
+     res.render('site/login', {message: null, username:''});
+  } else {
+    // This will select only name from the Projects table, and only status from the UserProjects table
+    user.getCourses({ attributes: ['id'], joinTableAttributes: ['courseid']})
+      .success(function(users, courses){
+        res.render('directory/showAll', { users: users, courses: courses });
+      })
+  }
+
+});
+
+app.get('/show/uxdi', function (req, res) {
+
+
+});
+
 
 
 // ERROR PAGE

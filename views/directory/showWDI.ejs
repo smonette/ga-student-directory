@@ -1,5 +1,29 @@
 <%- include ../header.ejs %>
 
-  <p>Site/show all WDI results</p>
+<div class="row directory">
+  <section>
+    <div class="row">
+      <div class="col-md-8">
+        <h1>All SF Students</h1>
+      </div>
+      <div class="col-md-4 right-box">
+        <a href="/show/all" class="btn btn-default">View All SF</a>
+        <a href="/show/uxdi" class="btn btn-default">View All UXDI</a>
+      </div>
+
+    </div>
+    <ul>
+
+    <% for(i=0; i<users.length; i++){ %>
+        <li>
+          <a href="/user/<%= users[i].id %>">
+           <%= users[i].firstname %> <%= users[i].lastname %>
+          </a>
+      </li>
+    <% } %>
+  </ul>
+
+  </section>
+</div>
   
 <%- include ../footer.ejs %>

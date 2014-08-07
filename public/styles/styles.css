@@ -96,3 +96,16 @@ li.tweet {
 .profile .bottom {
   clear: both;
 }
+
+/* Directory */
+.directory ul {
+  padding: 0;
+}
+.directory .right-box{
+  padding: 15px 0;
+}
+.directory li {
+  list-style: none;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+}

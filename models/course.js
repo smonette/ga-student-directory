@@ -1,6 +1,6 @@
-function Course(sequelize, DataTypes){
+module.exports = function (sequelize, DataTypes){
 
-  return sequelize.define('course',{
+  var Course = sequelize.define('course',{
       id: {
         type: DataTypes.INTEGER,
         unique: true 
@@ -9,8 +9,6 @@ function Course(sequelize, DataTypes){
       topic: DataTypes.STRING,
       time: DataTypes.STRING
   })
-  
+  return Course;
 }
-
-module.exports = Course;
 
