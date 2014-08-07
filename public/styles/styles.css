@@ -68,10 +68,18 @@ header .right {
 ul.tweet-stream{
   padding: 0;
 }
-li.tweet {
+ li.tweet {
   list-style: none;
   padding: 10px 0;
   border-top: 1px solid #ccc;
+}
+.home h2 {
+  padding-top: 20px;
+}
+.home .tweetphoto {
+  border: 1px solid #ccc;
+  margin: 0 15px 0 0;
+  float: left;
 }
 
 /* profile */

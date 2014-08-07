@@ -1,7 +1,7 @@
 <%- include ../header.ejs %>
 
   
-<div class="row">
+<div class="row home">
   <section>
     <div class="col-md-6 col-xs-12">
       <h2>GA Connect</h2>
@@ -12,6 +12,8 @@
       <h2>Your Profile</h2>
       <a href="/user/<%= id %>" class="btn btn-default">View Your Profile</a>
       <a href="/edit/<%= id %>" class="btn btn-default">Edit Your Profile</a>
+      <br>
+      <br>
       <a href="/logout" class="btn btn-danger">Log out</a>
 
     </div>
@@ -21,7 +23,9 @@
       <ul class="tweet-stream">
         <% for(i = 0; i < tweets.length; i++) { %>
           <li class="tweet">
-            <p><a href="http://twitter.com/GA_SF/status/<%= tweets[i].id_str %>"><%= tweets[i].text %></a></p>
+
+            <p><img src="<%= tweets[0].user.profile_image_url %>" class="tweetphoto"/><a href="http://twitter.com/GA_SF/status/<%= tweets[i].id_str %>"><%= tweets[i].text %></a></p>
+
           </li>
         <% } %>
       </ul>

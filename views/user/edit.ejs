@@ -9,32 +9,32 @@
 <div class="row">
   <section>
 
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-7 col-xs-12">
 
       <h2>Edit Your Profile</h2>
 
       <form class="form-horizontal" role="form" method="POST" action="/edit/<%= id %>?_method=put">
 
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input class="form-control" id="disabledInput" type="text" value="<%= firstname %>" disabled>
           </div>
         </div>
 
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input class="form-control" id="disabledInput" type="text" value="<%= lastname %>" disabled>
           </div>
         </div>
 
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input class="form-control" id="disabledInput" type="text" value="<%= email %>" disabled>
           </div>
         </div>
 
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <select name="courseid" class="form-control">
               <option value="<%= courseid %>" disabled selected><%= course %></option>
               <option value="8">WDI - January 2014</option>
@@ -50,12 +50,12 @@
         </div>
 
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input type="text" class="form-control" id="website" name="website" placeholder="Website" value="<%= website %>">
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
            
            <div class="input-group">
               <div class="input-group-addon">@</div>
@@ -64,22 +64,22 @@
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <input type="text" class="form-control" id="linkedin" name="linkedin" placeholder="LinkedIn" value="<%= linkedin %>">
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <textarea class="form-control" rows="5" placeholder="Bio" name="bio"><%= bio %></textarea>
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
              <textarea class="form-control" rows="3" name="addlinfo" placeholder="Additional Info, Sample work, etc"><%= addlinfo %></textarea>
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-10">
+          <div class="col-sm-12">
             <button type="submit" class="btn btn-default">Edit</button>
           </div>
         </div>
@@ -89,7 +89,7 @@
 
     </div>
 
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-5 col-xs-12">
       
     </div>
 

@@ -108,7 +108,7 @@ app.get('/home/:id', function (req, res) {
   if(!req.user){
      res.render('site/login', {message: null, username:''});
   } else {
-    var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=GA_SF&count=5";
+    var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=GA_SF&count=6";
     retreieveTweets(url, function(allTweets){
       res.render('site/home', { tweets: allTweets, id: req.params.id });
     });
@@ -187,7 +187,7 @@ app.get('/user/:id', function (req, res) {
           }
         }) .success( function(foundCourse){
 
-            var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=5";
+            var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=6";
             retreieveTweets(url, function(allTweets){ 
                   res.render("user/profile", 
                   { isAuthenticated: req.isAuthenticated(),
@@ -250,7 +250,7 @@ app.get('/show/all', function (req, res) {
     db.user.findAll()
       .success(function(users){
         res.render('directory/showAll', { users: users });
-      })
+      });
   }
 
   // if(!req.user){
@@ -276,7 +276,7 @@ app.get('/show/wdi', function (req, res) {
       })
   }
 
-});
+});;
 
 app.get('/show/uxdi', function (req, res) {
 
