@@ -11,8 +11,6 @@ var express = require('express'),
     flash = require('connect-flash'),
     app = express();
 
-var request = require('supertest');
-
 app.use(express.static(__dirname + '/public'));
 
 app.use(methodOverride("_method"));
@@ -306,6 +304,36 @@ app.get('/show/uxdi', function (req, res) {
 app.get('/*', function (req, res) {
   res.render('site/error');
 });
+
+
+
+// Testing!
+
+// var request = require('supertest');
+
+// describe("Routing site files", function(){
+
+//   it ("root should return", function(done){
+//     request(app)
+//       .get('/')
+//       .expect(200)
+//       .end(done);
+//   });
+//   it ("about should return", function(done){
+//     request(app)
+//       .get('/about')
+//       .expect(200)
+//       .end(done);
+//   });
+//   it ("login should return", function(done){
+//     request(app)
+//       .get('/login')
+//       .expect(200)
+//       .end(done);
+//   });
+
+// });
+
 
 
 
