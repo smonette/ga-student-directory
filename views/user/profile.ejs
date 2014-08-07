@@ -9,40 +9,62 @@
 
 <div class="row profile">
   <section>
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-7 col-xs-12">
 
       <h1><%= user.dataValues.firstname %> <%= user.dataValues.lastname %></h1> 
 
-      
       <% var photo=tweets[0].user.profile_image_url; %>
       <% var photoSmall=photo.toString(); %>
       <% var photoBig=photoSmall.split("_normal",1) + ".jpeg"; %>
 
       <div class="top">
         <img src="<%= photoBig %>" class="profile-pic"/>
+        <h3>Contact</h3>
         <p class="email"><a href="mailto:<%= user.dataValues.email %>"><%= user.dataValues.email %></a></p>
-        <p><a href="<%= user.dataValues.linkedin %>"><%= user.dataValues.linkedin %></a></p>
-        <p><a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>">@<%= user.dataValues.twitterhandle %></a></p>
+        <% if (user.dataValues.linkedin) { %>
+           <p><a href="<%= user.dataValues.linkedin %>">LinkedIn</a></p>
+        <% } %>
+
+        <% if (user.dataValues.twitterhandle) { %>
+           <p><a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>">@<%= user.dataValues.twitterhandle %></a></p>
+        <% } %>
+
+        <% if (user.dataValues.courseid) { %>
+           <p><%= course.dataValues.name %></p>
+        <% } %>
+        
       </div>
 
       <div class="bottom">
-        <h4>Bio</h4>
-        <p><%= user.dataValues.bio %></p>
-        <h4>Sample Work</h4>
-        <p><%= user.dataValues.samplework %></p>
+
+        <% if (user.dataValues.bio) { %>
+          <h3>Bio</h3>
+          <p><%= user.dataValues.bio %></p>
+        <% } %>
+
+        <% if (user.dataValues.samplework) { %>
+          <h3>Sample Work</h3>
+          <p><%= user.dataValues.samplework %></p>
+        <% } %>
+
+        
+        
       </div>
 
     </div>
 
-    <div class="col-md-6 col-xs-12">
-      <h2>What's new with <a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>"><%= user.dataValues.firstname %></a></h2>
-      <ul class="tweet-stream">
-        <% for(i = 0; i < tweets.length; i++) { %>
-          <li class="tweet">
-            <p><a href="http://twitter.com/<%= tweets[0].user.screen_name %>/status/<%= tweets[i].id_str %>"><%= tweets[i].text %></a></p>
-          </li>
+    <div class="col-md-5 col-xs-12">
+        <% if (user.dataValues.twitterhandle) { %>
+            <h3>What's new with <a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>"><%= user.dataValues.firstname %></a></h3>
+            <ul class="tweet-stream">
+              <% for(i = 0; i < tweets.length; i++) { %>
+                <li class="tweet">
+                  <p><a href="http://twitter.com/<%= tweets[0].user.screen_name %>/status/<%= tweets[i].id_str %>"><%= tweets[i].text %></a></p>
+                </li>
+              <% } %>
+            </ul>
         <% } %>
-      </ul>
+
     </div>
 
   </section>

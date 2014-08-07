@@ -152,9 +152,11 @@ app.put('/edit/:id', function(req,res){
       }
     })
     .success(function(foundUser){
+
       foundUser.updateAttributes ( {
         website: req.body.website, 
         twitterhandle: req.body.twitterhandle, 
+        courseid: req.body.courseid, 
         linkedin: req.body.linkedin, 
         bio: req.body.bio, 
         samplework: req.body.addlinfo 
@@ -184,16 +186,27 @@ app.get('/user/:id', function (req, res) {
     })
     .success(function(foundUser) {
     
+        db.course.find({
+          where: {
+            id: foundUser.courseid
+          }
+        }) .success( function(foundCourse){
 
-      var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=5";
-      retreieveTweets(url, function(allTweets){ 
-              res.render("user/profile", 
-              { isAuthenticated: req.isAuthenticated(),
-                tweets: allTweets,
-                user: foundUser
-              });
-         });   
-      });
+            var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=5";
+            retreieveTweets(url, function(allTweets){ 
+                    res.render("user/profile", 
+                    { isAuthenticated: req.isAuthenticated(),
+                      tweets: allTweets,
+                      user: foundUser,
+                      course: foundCourse
+                    });
+               });   
+            });
+
+
+
+        })
+
 
 
 
@@ -206,22 +219,34 @@ app.get('/edit/:id', function (req, res) {
   var id = req.params.id;
   db.user.find(id)
   .success(function(foundUser){
-    console.log(foundUser.bio);
+      var classid = foundUser.courseid;
+      db.course.find(classid)
 
-      res.render('user/edit', 
-        { id: foundUser.id,
-        firstname: foundUser.firstname, 
-        lastname: foundUser.lastname, 
-        email: foundUser.email, 
-        website: foundUser.website || "", 
-        twitterhandle: foundUser.twitterhandle || "", 
-        linkedin: foundUser.linkedin || "", 
-        bio: foundUser.bio || "", 
-        addlinfo: foundUser.samplework || "", 
-        isAuthenticated: req.isAuthenticated()
-        
-      })
-  })
+        .success( function(foundCourse){
+          var course = foundCourse;
+
+           res.render('user/edit', 
+              { id: foundUser.id,
+              firstname: foundUser.firstname, 
+              lastname: foundUser.lastname, 
+              email: foundUser.email, 
+              courseid: foundUser.courseid || "",
+              course: course.topic + " - " + course.time || "Select Your Cohort",
+              website: foundUser.website || "", 
+              twitterhandle: foundUser.twitterhandle || "", 
+              linkedin: foundUser.linkedin || "", 
+              bio: foundUser.bio || "", 
+              addlinfo: foundUser.samplework || "", 
+              isAuthenticated: req.isAuthenticated()
+              })
+            })
+
+
+
+        })
+
+
+     
 
 });
 

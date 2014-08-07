@@ -6,7 +6,7 @@
 </div>
 <%  } else {%>
   
-<div class="row signup">
+<div class="row">
   <section>
 
     <div class="col-md-6 col-xs-12">
@@ -35,14 +35,13 @@
 
         <div class="form-group">
           <div class="col-sm-10">
-            <select name="name" class="form-control">
-              <option value="" disabled selected>Select your cohort</option>
+            <select name="courseid" class="form-control">
+              <option value="<%= courseid %>" disabled selected><%= course %></option>
               <option value="8">WDI - January 2014</option>
               <option value="3">WDI - April 2014</option>
               <option value="1">WDI - July 2014</option>
               <option value="2">WDI - August 2014</option>
-              <option value="5">WDI - November 2014 #1</option>
-              <option value="6">WDI - November 2014 #2</option>
+              <option value="5">WDI - November 2014</option>
               <option value="7">UXDI - March 2014</option>
               <option value="3">UXDI - June 2014</option>
               <option value="4">UXDI - September 2014</option>
@@ -57,7 +56,11 @@
         </div>
         <div class="form-group">
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="twitter" name="twitterhandle" placeholder="Twitter Handle" value="<%= twitterhandle %>">
+           
+           <div class="input-group">
+              <div class="input-group-addon">@</div>
+              <input type="text" class="form-control twitterhandle" id="twitterhandle" name="twitterhandle" value="<%= twitterhandle %>"placeholder="Twitter Handle">
+            </div>
           </div>
         </div>
         <div class="form-group">

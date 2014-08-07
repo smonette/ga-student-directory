@@ -45,7 +45,7 @@ header a#logo {
   width: 100px;
   height: 30px;
 }
-header .right-box {
+header .right {
   float: right;
 }
 .main {
@@ -77,20 +77,22 @@ li.tweet {
 /* profile */
 .profile img.profile-pic {
   float: left;
-  margin: 10px 10px 10px 0;
+  margin: 10px 20px 10px 0;
   border-radius: 50%;
   width: 150px;
 }
 
 .profile .top {
   clear: both;
-  height: 175px;
+  height: 190px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.profile .top h3 {
+  margin-top: 10px;
 }
 .profile .bottom {
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
   clear: both;
-}
-.profile .top .email {
-  padding-top: 40px;
 }

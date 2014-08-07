@@ -1,14 +1,14 @@
-<%- include ../header.ejs %>
+<%- include ../headerOut.ejs %>
 
   
 <div class="row signup">
   <section>
-    <div class="col-md-7 col-xs-12">
-      <p>Bacon ipsum dolor sit amet tenderloin porchetta pork chop pastrami 
-        corned beef kielbasa spare ribs beef ribs shoulder filet mignon.</p>
+    <div class="col-md-5 col-xs-12">
+        <h1>Connect with past<br> &amp; present SF GA students.</h1> 
+        <p>Get in touch with members of your cohort, or find someone to collaborate on a project with.</p>
     </div>
 
-    <div class="col-md-5 col-xs-12">
+    <div class="col-md-7 col-xs-12">
 
       <h2>Sign Up Now</h2>
 
@@ -47,11 +47,17 @@
             <input type="email" class="form-control email" id="email" name="email" placeholder="Email">
           </div>
         </div>
+
         <div class="form-group">
           <div class="col-sm-12">
-            <input type="text" class="form-control twitterhandle" id="twitterhandle" name="twitterhandle" placeholder="Twitter Handle">
+           
+           <div class="input-group">
+              <div class="input-group-addon">@</div>
+              <input type="text" class="form-control twitterhandle" id="twitterhandle" name="twitterhandle" placeholder="Twitter Handle">
+            </div>
           </div>
         </div>
+
         <div class="form-group">
           <div class="col-sm-12">
             <input type="password" class="form-control password" id="password" name="password" placeholder="Password">
