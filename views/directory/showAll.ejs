@@ -12,16 +12,30 @@
       </div>
 
     </div>
-    <ul>
+<ul>
 
-    <% for(i=0; i<users.length; i++){ %>
-        <li>
-          <a href="/user/<%= users[i].id %>">
-           <%= users[i].firstname %> <%= users[i].lastname %>
-          </a>
-      </li>
-    <% } %>
-  </ul>
+  <% for(i=0; i<courses.length; i++){ %>
+      <% if(courses[i].users.length > 0) { %>
+          <li>
+
+            <%= courses[i].name %>
+
+            <ul>
+              <% for(h=0; h < courses[i].users.length; h++){ %>
+                  <li>
+                    <a href="/users/<%= courses[i].users[h].id %>">
+                      <%= courses[i].users[h].firstname %> <%= courses[i].users[h].lastname %>
+                    </a>
+                </li>
+              <% } %>
+            </ul>
+
+          </li>
+      <% } %>
+  <% } %>
+</ul>
+
+
 
   </section>
 </div>

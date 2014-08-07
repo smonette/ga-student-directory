@@ -244,29 +244,16 @@ app.get('/show/all', function (req, res) {
   if(!req.user){
      res.render('site/login', {message: null, username:''});
   } else {
-    db.user.findAll()
-      .success(function(users){
-
-        // var courses = [];
-        // users.forEach(function (usr) {
-        //   usr.getCourse().success(function (course, idx) {
-        //     console.log("course", course);
-        //     courses.push(course);
-        //   });
-        // });
-
-        res.render('directory/showAll', { users: users/*, courses: courses*/ });
+    db.course.findAll( {include:[db.user]} )
+      .success(function(courses){
+        // var studentOutput =[]
+        // for(i=0; i < courses.length; i++){
+        //   studentOutput.push(courses[i].users);
+        // }
+        // res.send(studentOutput)
+        res.render('directory/showAll', { courses: courses });
       });
   }
-
-  // if(!req.user){
-  //    res.render('site/login', {message: null, username:''});
-  // } else {
-  //   db.user.getCourses({ attributes: ['id'], joinTableAttributes: ['courseid']})
-  //     .success(function(users, courses){
-  //       res.render('directory/showAll', { users: users, courses: courses });
-  //     })
-  // }
 
 });
 

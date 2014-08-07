@@ -24,15 +24,18 @@ module.exports = function (sequelize, DataTypes){
       linkedin: DataTypes.STRING,
       bio: DataTypes.TEXT,
       samplework: DataTypes.TEXT,
-      courseid: DataTypes.INTEGER
+      courseId: DataTypes.INTEGER
     }, //close the first opening bracket after user()
 
     {
     classMethods: {
+       associate: function(db){
+        User.hasOne(db.course);
+      },
       encryptPass: function(password) {
         var hash = bcrypt.hashSync(password, salt);
         return hash;
-    }, 
+      }, 
       comparePass: function(userpass, dbpass) {
       // don't salt twice when you compare....watch out for this
         return bcrypt.compareSync(userpass, dbpass);  
