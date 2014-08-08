@@ -15,7 +15,7 @@
 
       <div class="top">
 
-        <% if (user.dataValues.twitterhandle) { %>
+        <% if ((user.dataValues.twitterhandle) && (user.dataValues.protected === "false")) { %>
           <% var photoBig=tweets[0].user.profile_image_url.toString().replace(/_normal/,"") %>
           <img src="<%= photoBig %>" class="profile-pic"/>
         <% } else { %>
@@ -27,7 +27,7 @@
            <p><a href="<%= user.dataValues.linkedin %>">LinkedIn</a></p>
         <% } %>
 
-        <% if (user.dataValues.twitterhandle) { %>
+        <% if ((user.dataValues.twitterhandle) && (user.dataValues.protected === "false")) { %>
            <p><a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>">@<%= user.dataValues.twitterhandle %></a></p>
         <% } %>
 
