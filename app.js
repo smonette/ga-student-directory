@@ -125,7 +125,7 @@ app.get('/logout', function(req,res){
 
 app.post('/create', function(req,res){
   // have to call my create new user functions
-  db.user.createNewUser(req.body.firstname, req.body.lastname, req.body.email, req.body.twitterhandle, req.body.password,
+  db.user.createNewUser(req.body.firstname, req.body.lastname, req.body.email, req.body.courseId, req.body.twitterhandle, req.body.password,
     function(err){
       res.render("site/index", { message: err.message, email: req.body.email});
     },
