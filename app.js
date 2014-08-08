@@ -202,6 +202,7 @@ app.get('/user/:id', function (req, res) {
                 } else {
                     res.render("user/profile", 
                     { isAuthenticated: req.isAuthenticated(),
+                      tweets: "",
                       user: foundUser,
                       course: foundCourse
                     });
