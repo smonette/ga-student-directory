@@ -1,0 +1,22 @@
+{
+  "development": {
+    "database": "ga-directory_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "ga-directory_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "dialect": "postgres",
+    "username": "xwdzbamvtrjssb",
+    "password": "g9aOnPF5IXOO_I5KF9PMlqWSLp",
+    "host": "ec2-54-235-132-177.compute-1.amazonaws.com",
+    "port": "5432",
+    "database": "delqtsrg35ness"
+  }
+}
+
+
