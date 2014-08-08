@@ -197,7 +197,7 @@ app.get('/user/:id', function (req, res) {
                     tweets: allTweets,
                     user: foundUser,
                     course: foundCourse
-                  });
+                  })
 
                 } else {
                     res.render("user/profile", 
@@ -205,7 +205,7 @@ app.get('/user/:id', function (req, res) {
                       tweets: "",
                       user: foundUser,
                       course: foundCourse
-                    });
+                    })
 
                 }
 
