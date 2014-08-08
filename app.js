@@ -189,7 +189,7 @@ app.get('/user/:id', function (req, res) {
 
             var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=6";
             retreieveTweets(url, function(allTweets){ 
-                  console.log("ALL TWEETS!!!: " + allTweets);
+                  console.log("ALL TWEETS!!! appjs: " + allTweets);
                   res.render("user/profile", 
                   { isAuthenticated: req.isAuthenticated(),
                     tweets: allTweets,
