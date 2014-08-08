@@ -56,7 +56,7 @@
     </div>
 
     <div class="col-md-5 col-xs-12">
-        <% if (user.dataValues.twitterhandle) { %>
+        <% if ((user.dataValues.twitterhandle) && (user.dataValues.protected === "false")) { %>
             <h3>What's new with <a href="http://www.twitter.com/<%= user.dataValues.twitterhandle %>"><%= user.dataValues.firstname %></a></h3>
             <ul class="tweet-stream">
               <% for(i = 0; i < tweets.length; i++) { %>
