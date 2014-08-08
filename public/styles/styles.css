@@ -103,7 +103,7 @@ ul.tweet-stream{
   float: left;
   margin: 10px 20px 10px 0;
   border-radius: 50%;
-  width: 150px;
+  height: 150px;
 }
 
 .profile .top {
