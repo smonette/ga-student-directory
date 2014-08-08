@@ -25,7 +25,7 @@
       <div class="top">
 
         <% if (user.dataValues.twitterhandle) { %>
-          <% var photoBig=tweets[0].user.profile_image_url.toString().replace(/_normal/,""); %>
+          <% var photoBig=tweets[0].user.profile_image_url.toString().replace(/_normal/,"") %>
           <img src="<%= photoBig %>" class="profile-pic"/>
         <% } else { %>
           <img src="/images/user.png" class="profile-pic"/>
