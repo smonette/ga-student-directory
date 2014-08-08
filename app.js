@@ -190,12 +190,7 @@ app.get('/user/:id', function (req, res) {
             var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=6";
             retreieveTweets(url, function(allTweets){ 
                   
-                  console.log("ALL TWEETS!!! appjs: ");
-                  console.log(allTweets);
-
-                  console.log("ALL TWEETS[0]!!! appjs: ");
-                  console.log(allTweets[0]);
-
+                if(allTweets.user){
 
                   res.render("user/profile", 
                   { isAuthenticated: req.isAuthenticated(),
@@ -203,6 +198,17 @@ app.get('/user/:id', function (req, res) {
                     user: foundUser,
                     course: foundCourse
                   });
+
+                } else {
+                    res.render("user/profile", 
+                    { isAuthenticated: req.isAuthenticated(),
+                      user: foundUser,
+                      course: foundCourse
+                    });
+
+                }
+
+
                });   
             });
 
