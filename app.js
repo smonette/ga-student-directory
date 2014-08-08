@@ -310,7 +310,7 @@ app.get('/show/uxdi', function (req, res) {
 // ERROR PAGE
 
 app.get('/*', function (req, res) {
-  res.render('site/error');
+  res.render('site/404');
 });
 
 
