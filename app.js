@@ -190,26 +190,19 @@ app.get('/user/:id', function (req, res) {
             var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=6";
             retreieveTweets(url, function(allTweets){ 
                   
-                if(allTweets.user[0].protected === false){
+                  console.log("ALL TWEETS!!! appjs: ");
+                  console.log(allTweets);
+
+                  console.log("ALL TWEETS[0]!!! appjs: ");
+                  console.log(allTweets[0]);
+
 
                   res.render("user/profile", 
                   { isAuthenticated: req.isAuthenticated(),
                     tweets: allTweets,
                     user: foundUser,
                     course: foundCourse
-                  })
-
-                } else {
-                    res.render("user/profile", 
-                    { isAuthenticated: req.isAuthenticated(),
-                      tweets: false,
-                      user: foundUser,
-                      course: foundCourse
-                    })
-
-                }
-
-
+                  });
                });   
             });
 
