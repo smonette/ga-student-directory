@@ -40,7 +40,7 @@ module.exports = function (sequelize, DataTypes){
       // don't salt twice when you compare....watch out for this
         return bcrypt.compareSync(userpass, dbpass);  
     },
-      createNewUser:function(firstname, lastname, email, twitterhandle, password, err, success ) {
+      createNewUser:function(firstname, lastname, email, courseId, twitterhandle, password, err, success ) {
         if(password.length < 6) {
           err({message: "Password should be more than six characters"});
         }
@@ -49,6 +49,7 @@ module.exports = function (sequelize, DataTypes){
             firstname: firstname,
             lastname: lastname,
             email: email,
+            courseId: courseId,
             twitterhandle: twitterhandle,
             password: User.encryptPass(password)
           }).error(function(error) {
