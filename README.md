@@ -3,7 +3,7 @@
 ## Overview
 GA Connect is a directory of student information for GA immersive students. Using the Twitter OAuth api, this app will pull in a students photo and recent tweets when they provide a public handle.
 
-http://ga-connect.herokuapp.com/
+[View on Heroku &raquo;](http://ga-connect.herokuapp.com/)
 
 ## Motivation
 
@@ -16,4 +16,3 @@ What if there were a tool where you could learn more about other students? Where
 * OAuth 
 * Passport
 * Sequelize
-* 
