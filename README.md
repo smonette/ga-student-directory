@@ -1,4 +1,4 @@
-# Project 1: Directory of SF GA Students
+# GA Connect
 
 ## Overview
 GA Connect is a directory of student information for GA immersive students, built on Node.js. Using the Twitter OAuth api, this app will pull in a students photo and recent tweets when they provide a public handle.
