@@ -18,7 +18,7 @@ app.use(methodOverride("_method"));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}) );
 app.use( cookieSession({
-    secret: 'thisismysecretkey', 
+    secret: 'thisismysecretkey',
     name: 'cookie created by steph',
     maxage: 60360000
 }) );
@@ -56,7 +56,7 @@ passport.deserializeUser(function(id, done){
         id: id
       }
     })
-    .done(function(error,user){ 
+    .done(function(error,user){
       done(error, user);
     });
 });
@@ -136,16 +136,16 @@ app.post('/create', function(req,res){
 });
 
 app.post('/login', passport.authenticate('local', {
-  //no req and res. we dont need to because passport is doing the heavy lifting with local  
+  //no req and res. we dont need to because passport is doing the heavy lifting with local
   successRedirect: '/home',
-  failureRedirect: '/login', 
+  failureRedirect: '/login',
   failureFlash: true
 }));
 
 
 app.put('/edit/:id', function(req,res){
   // find the user by id grab from url
-  // make sure only the user can change their profile 
+  // make sure only the user can change their profile
 
     db.user.find({
       where: {
@@ -155,12 +155,12 @@ app.put('/edit/:id', function(req,res){
     .success(function(foundUser){
 
       foundUser.updateAttributes ( {
-        website: req.body.website, 
-        twitterhandle: req.body.twitterhandle, 
-        courseId: req.body.courseId, 
-        linkedin: req.body.linkedin, 
-        bio: req.body.bio, 
-        samplework: req.body.addlinfo 
+        website: req.body.website,
+        twitterhandle: req.body.twitterhandle,
+        courseId: req.body.courseId,
+        linkedin: req.body.linkedin,
+        bio: req.body.bio,
+        samplework: req.body.addlinfo
       } )
     })
     .success(function(user){
@@ -180,7 +180,7 @@ app.get('/user/:id', function (req, res) {
       }
     })
     .success(function(foundUser) {
-    
+
         db.course.find({
           where: {
             id: foundUser.courseId
@@ -188,8 +188,8 @@ app.get('/user/:id', function (req, res) {
         }) .success( function(foundCourse){
 
             var url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=" + foundUser.twitterhandle + "&count=6";
-            retreieveTweets(url, function(allTweets){ 
-                  
+            retreieveTweets(url, function(allTweets){
+
                   console.log("ALL TWEETS!!! appjs: ");
                   console.log(allTweets);
 
@@ -197,13 +197,13 @@ app.get('/user/:id', function (req, res) {
                   console.log(allTweets[0]);
 
 
-                  res.render("user/profile", 
+                  res.render("user/profile",
                   { isAuthenticated: req.isAuthenticated(),
                     tweets: allTweets,
                     user: foundUser,
                     course: foundCourse
                   });
-               });   
+               });
             });
 
 
@@ -248,7 +248,7 @@ app.get('/edit/:id', function (req, res) {
 
 // DIRECTORY PAGE
 app.get('/show/all', function (req, res) {
-  
+
   if(!req.user){
      res.render('site/login', {message: null, email:''});
   } else {
